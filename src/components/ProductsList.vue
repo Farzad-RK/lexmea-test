@@ -18,7 +18,7 @@
           <div v-for="product in products" :key="product.id" class="item-container">
             <div class="list-item">
               <div class="image-container">
-
+                <img class="item-img" :src="product.imageURL" alt="">
               </div>
               <div class="detail-container">
                 <p class="item-title">
@@ -116,6 +116,13 @@ const virtualList = useVirtualList(products, {
 .image-container{
   width: 30%;
   height: 100%;
+  align-items: center;
+  padding: 10px;
+}
+
+.item-img{
+  height: 50px;
+  width: 50px;
 }
 
 .detail-container{
