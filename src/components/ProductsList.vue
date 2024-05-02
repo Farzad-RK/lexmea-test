@@ -45,19 +45,18 @@ import { useQuery } from '@tanstack/vue-query'
 const url = `https://gist.githubusercontent.com/benfranke/c33280a8df5f4f9db2e63ad45cab26a4/raw/f3ad6c00ff520c2667305103d5705bcbb57a7778/products.json`
 const products = ref([]);
 
-const { isPending, isFetching, isError, data, error } = useQuery({
+const { isPending, isError, error } = useQuery({
   queryKey: ['products'],
   queryFn:  async () => {
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error('Network response was not ok')
     }
-    const {products} = await response.json()
-    return products
+    const data = await response.json()
+    products.value = data.products
+    return data
   },
 })
-// Update items when data changes
-products.value = data.value || [];
 
 // Use virtual list
 const virtualList = useVirtualList(products, {
